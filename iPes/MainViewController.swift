@@ -185,6 +185,10 @@ extension MainViewController: UITableViewDelegate {
 
 extension MainViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.companys.count == 1 {
+            return 8
+        }
+        
         return self.companys.count == 0 && self.nativeView.seachBar.text?.characters.count > 2 ? 1 : self.companys.count
     }
     
@@ -193,7 +197,7 @@ extension MainViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        if self.companys.count == 0 {
+        if self.companys.count < 2 {
             return false
         }
         
@@ -201,6 +205,8 @@ extension MainViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        tableView.separatorColor = UIColor.lightGrayColor()
+        
         if indexPath.row == self.companys.count - 1 && self.numberOfPages > 1 && self.numberOfPages - 1 > self.currentPage {
             let cell = tableView.dequeueReusableCellWithIdentifier("loaderCell") as! LoaderTableViewCell
             cell.spinner.startAnimating()
@@ -226,16 +232,46 @@ extension MainViewController: UITableViewDataSource {
 
         let cell = tableView.dequeueReusableCellWithIdentifier("cell")!
         if self.companys.count < 1 {
-            cell.textLabel?.text = "No results for \"\(self.nativeView.seachBar.text! ?? "")\""
+            cell.textLabel?.text = "No results for \"\(self.nativeView.seachBar.text ?? "")\""
             cell.detailTextLabel?.text = nil
-        } else {
+        } else if self.companys.count > 1 {
             let company = self.companys[indexPath.row]
             cell.textLabel?.text = company.shortName == "/" ? company.fullName?.uppercaseString : company.shortName?.uppercaseString
             if let addressStreet = company.addressStreet, houseNumber = company.addressHouseNumber, postNumber = company.addressPostNumber, town = company.addressPost {
                 cell.detailTextLabel?.text = "\(addressStreet.uppercaseString) \(houseNumber), \(postNumber) \(town.uppercaseString)"
             }
+        } else {
+            tableView.separatorColor = UIColor.clearColor()
+            switch indexPath.row {
+            case 0:
+                cell.textLabel?.text = "Polno ime:"
+                cell.detailTextLabel?.text = self.companys[0].fullName?.uppercaseString
+            case 1:
+                cell.textLabel?.text = "Kratko ime:"
+                cell.detailTextLabel?.text = self.companys[0].shortName?.uppercaseString
+            case 2:
+                cell.textLabel?.text = "Davčna številka:"
+                cell.detailTextLabel?.text = "\(self.companys[0].taxNumber!)"
+            case 3:
+                cell.textLabel?.text = "Matična številka:"
+                cell.detailTextLabel?.text = self.companys[0].idNumber?.uppercaseString
+            case 4:
+                cell.textLabel?.text = "Naslov:"
+                cell.detailTextLabel?.text = self.companys[0].addressStreet!.uppercaseString + " " + self.companys[0].addressHouseNumber!.uppercaseString
+            case 5:
+                cell.textLabel?.text = "Občina:"
+                cell.detailTextLabel?.text = self.companys[0].addressMunicipality?.uppercaseString
+            case 6:
+                cell.textLabel?.text = "Pošta:"
+                cell.detailTextLabel?.text = self.companys[0].addressPost?.uppercaseString
+            case 7:
+                cell.textLabel?.text = "Poštna številka:"
+                cell.detailTextLabel?.text = self.companys[0].addressPostNumber?.uppercaseString
+            default:
+                cell.textLabel?.text = "Poštna številka:"
+                cell.detailTextLabel?.text = self.companys[0].addressPostNumber?.uppercaseString
+            }
         }
-        
         
         return cell
     }
