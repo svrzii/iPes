@@ -303,18 +303,14 @@
                         </constraints>
                         <connections>
                             <outlet property="addressMunicipalityLabel" destination="Uhu-tZ-xnv" id="Bkh-g7-hvi"/>
-                            <outlet property="addressMunicipalityTitleLabel" destination="cp2-KH-Ddd" id="F8k-yJ-CYN"/>
                             <outlet property="addressPostLabel" destination="QOZ-5x-Gf8" id="EfP-xp-oVu"/>
                             <outlet property="addressPostNumberLabel" destination="YMC-4g-Vr6" id="zMM-Bc-xSr"/>
-                            <outlet property="addressPostNumberTitleLabel" destination="kMa-LI-ami" id="1IR-Yo-ULG"/>
                             <outlet property="addressStreetLabel" destination="8fK-UV-eSA" id="ON4-Mg-8pP"/>
                             <outlet property="bankAccountTitleLabel" destination="GCt-qP-LLQ" id="H9Q-VI-7h9"/>
                             <outlet property="bankAccountsLabel" destination="5cF-6b-I8h" id="iSc-P2-KQE"/>
                             <outlet property="fullNameLabel" destination="PbF-MR-rh2" id="EnR-9a-HLs"/>
                             <outlet property="idNumberLabel" destination="jht-6B-DWa" id="IF8-ta-OzE"/>
-                            <outlet property="idNumberTitleLabel" destination="Qkd-GY-nxc" id="blH-f6-T7O"/>
                             <outlet property="shortNameLabel" destination="AoQ-9u-Rfn" id="Ka0-pQ-2Cj"/>
-                            <outlet property="shortNameTitleLabel" destination="v1Z-1d-S8f" id="7HT-An-BgM"/>
                             <outlet property="taxNumberLabel" destination="cXO-MC-xWf" id="vdv-Ui-l2H"/>
                         </connections>
                     </view>

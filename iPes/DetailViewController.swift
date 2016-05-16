@@ -19,10 +19,6 @@ final class DetailControllerView: UIView {
     @IBOutlet var addressPostNumberLabel: UILabel!
     @IBOutlet var bankAccountsLabel: UILabel!
     @IBOutlet var bankAccountTitleLabel: UILabel!
-    @IBOutlet var shortNameTitleLabel: UILabel!
-    @IBOutlet var addressMunicipalityTitleLabel: UILabel!
-    @IBOutlet var idNumberTitleLabel: UILabel!
-    @IBOutlet var addressPostNumberTitleLabel: UILabel!
 }
 
 class DetailViewController: UIViewController {
