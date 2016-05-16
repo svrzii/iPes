@@ -105,6 +105,11 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
             }
         }
     }
+    @IBAction func infoTapped(sender: UIButton) {
+        let alert = UIAlertController(title: "iPes", message: "Version: 1.0\nBuild date: 16.05.2016\n\nIntera d.o.o.", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Close", style: .Cancel, handler:nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
 }
 
 extension MainViewController: UISearchBarDelegate {

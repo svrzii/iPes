@@ -95,7 +95,18 @@
                             <outlet property="tableView" destination="hvD-V0-5X8" id="l5Y-3z-0hH"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="iPes" id="Nrb-iH-NuQ"/>
+                    <navigationItem key="navigationItem" title="iPes" id="Nrb-iH-NuQ">
+                        <barButtonItem key="rightBarButtonItem" id="5Iz-lF-0m5">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="zk9-gF-ysj">
+                                <rect key="frame" x="558" y="11" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="infoTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dRb-BE-oVh"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="YN0-oN-baf" kind="show" identifier="showCompanyDetail" id="szC-8m-air"/>
                     </connections>
