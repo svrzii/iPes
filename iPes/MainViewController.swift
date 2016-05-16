@@ -49,13 +49,7 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
         
         let urlRequest = NSMutableURLRequest(URL: requestURL)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(urlRequest) { [unowned self] (data, response, error) in
-            
             if error != nil {
-                return
-            }
-            
-            let statusCode = (response as! NSHTTPURLResponse).statusCode
-            if statusCode != 200 {
                 return
             }
             
