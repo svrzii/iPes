@@ -27,7 +27,7 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
         case Name = 0
         case Tax = 1
     }
-    //
+    
     private var type: Type = .Name
     private var companys: [Company] = []
     private var numberOfPages = 0
