@@ -146,6 +146,32 @@ extension MainViewController: UISearchBarDelegate {
             self.nativeView.tableView.endUpdates()
         }
     }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        guard let text = searchBar.text else {
+            return
+        }
+        
+        self.view.endEditing(true)
+        self.companys.removeAll()
+        self.currentPage = 0
+        
+        self.requestWithSearchString(text, completion: { [unowned self] (error) in
+            if let error = error {
+                let alert = UIAlertController(title: "Error", message: "There was a problem. Additional info: \(error.localizedDescription)", preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler:nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+            
+            if self.currentPage == 0 && self.companys.count > 0 {
+                self.nativeView.tableView.beginUpdates()
+                self.nativeView.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+                self.nativeView.tableView.endUpdates()
+            } else {
+                self.nativeView.tableView.reloadData()
+            }
+        })  
+    }
 }
 
 extension MainViewController: UITableViewDelegate {
