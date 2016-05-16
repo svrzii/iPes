@@ -14,7 +14,6 @@ final class LoaderTableViewCell: UITableViewCell {
 
 final class MainControllerView: UIView {
     @IBOutlet var tableView: UITableView!
-    @IBOutlet var segmentControl: UISegmentedControl!
     @IBOutlet var seachBar: UISearchBar!
 }
 
@@ -22,25 +21,13 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
     var nativeView: MainControllerView! {
         return self.view as! MainControllerView
     }
-
-    private enum Type: UInt8 {
-        case Name = 0
-        case Tax = 1
-    }
     
-    private var type: Type = .Name
     private var companys: [Company] = []
     private var numberOfPages = 0
     private var currentPage = 0
     
-    func requestWithSearchString(string: String, completion: (() -> Void)?) {
-        let strURL: String
-        
-        if self.type == .Name {
-            strURL = "http://ajpes.intera.si/index/search?search=\(string)&type=title&page=\(self.currentPage)"
-        } else {
-            strURL = "http://ajpes.intera.si/index/search?search=\(string)&type=tax&page=\(self.currentPage)"
-        }
+    func requestWithSearchString(string: String, completion: ((NSError?) -> Void)?) {
+        let strURL = "http://ajpes.intera.si/index/search?search=\(string)&type=title&page=\(self.currentPage)"
         
         guard let encodedString = strURL.stringByAddingPercentEncodingWithAllowedCharacters(.URLFragmentAllowedCharacterSet()), requestURL = NSURL(string: encodedString) else {
             
@@ -50,6 +37,12 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
         let urlRequest = NSMutableURLRequest(URL: requestURL)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(urlRequest) { [unowned self] (data, response, error) in
             if error != nil {
+                dispatch_async(dispatch_get_main_queue()) {
+                    if let completion = completion {
+                        completion(error)
+                    }
+                }
+                
                 return
             }
             
@@ -60,46 +53,42 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
                     self.numberOfPages = pages
                 }
                 
+                guard let count = json["count"] as? Int else {
+                    return
+                }
+                
+                var titleString = "iPes"
+                if count == 1 {
+                    titleString = "iPes (\(count) Result)"
+                } else if count > 1 {
+                    titleString = "iPes (\(count) Results)"
+                }
+                
                 if let results = json["results"] as? [[String: AnyObject]] {
+                    if self.currentPage == 0 {
+                        self.companys.removeAll()
+                    }
+                    
                     for result in results {
                         let company = Company()
                         company.fillFromJSON(result)
                         self.companys.append(company)
                     }
-                    
-                    dispatch_async(dispatch_get_main_queue()) {
-                        if self.companys.count < 1 {
-                            return
-                        }
-                        
-                        if self.currentPage == 0 {
-                            self.nativeView.tableView.setContentOffset(CGPointMake(0, 20), animated: true)
-                            
-                            self.nativeView.tableView.beginUpdates()
-                            self.nativeView.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
-                            self.nativeView.tableView.endUpdates()
-                        } else {
-                            self.nativeView.tableView.reloadData()
-                        }
-                        
-                        if let completion = completion {
-                            completion()
-                        }
-                    }
                 }
                 
-            }catch {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.title = titleString
+                    
+                    if let completion = completion {
+                        completion(nil)
+                    }
+                }
+            } catch {
                 print("Error with Json: \(error)")
             }
-            
         }
         
         task.resume()
-    }
-    
-    @IBAction func segmentControlTapped(sender: UISegmentedControl) {
-        self.type = sender.selectedSegmentIndex == 0 ? .Name : .Tax
-        self.nativeView.tableView.setContentOffset(CGPointMake(0, -64), animated: true)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -108,6 +97,7 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showCompanyDetail" {
+            self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
             let destinationViewController = segue.destinationViewController as! DetailViewController
             
             if let company = sender as? Company {
@@ -120,6 +110,33 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
 extension MainViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        self.companys.removeAll()
+        self.currentPage = 0
+        
+        if searchText.characters.count > 2 {
+            self.requestWithSearchString(searchText, completion: { [unowned self] (error) in
+                if let error = error {
+                    let alert = UIAlertController(title: "Error", message: "There was a problem. Additional info: \(error.localizedDescription)", preferredStyle: .Alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler:nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+                
+                if self.currentPage == 0 && self.companys.count > 0 {
+                    self.nativeView.tableView.beginUpdates()
+                    self.nativeView.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+                    self.nativeView.tableView.endUpdates()
+                } else {
+                    self.nativeView.tableView.reloadData()
+                }
+            })
+        } else {
+            self.nativeView.tableView.beginUpdates()
+            self.nativeView.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+            self.nativeView.tableView.endUpdates()
+        }
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
@@ -152,11 +169,19 @@ extension MainViewController: UITableViewDelegate {
 
 extension MainViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.companys.count ?? 0
+        return self.companys.count == 0 && self.nativeView.seachBar.text?.characters.count > 2 ? 1 : self.companys.count
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
+    }
+    
+    func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if self.companys.count == 0 {
+            return false
+        }
+        
+        return true
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -168,8 +193,15 @@ extension MainViewController: UITableViewDataSource {
                 self.currentPage += 1
                 
                 weak var weakCell = cell
-                self.requestWithSearchString(text, completion: { 
+                self.requestWithSearchString(text, completion: { [unowned self] (error) in
+                    if let error = error {
+                        let alert = UIAlertController(title: "Error", message: "There was a problem. Additional info: \(error.localizedDescription)", preferredStyle: .Alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler:nil))
+                        self.presentViewController(alert, animated: true, completion: nil)
+                    }
+                    
                     weakCell?.spinner.stopAnimating()
+                    self.nativeView.tableView.reloadData()
                 })
             }
             
@@ -177,9 +209,17 @@ extension MainViewController: UITableViewDataSource {
         }
 
         let cell = tableView.dequeueReusableCellWithIdentifier("cell")!
+        if self.companys.count < 1 {
+            cell.textLabel?.text = "No results for \"\(self.nativeView.seachBar.text! ?? "")\""
+            cell.detailTextLabel?.text = nil
+        } else {
+            let company = self.companys[indexPath.row]
+            cell.textLabel?.text = company.shortName == "/" ? company.fullName?.uppercaseString : company.shortName?.uppercaseString
+            if let addressStreet = company.addressStreet, houseNumber = company.addressHouseNumber, postNumber = company.addressPostNumber, town = company.addressPost {
+                cell.detailTextLabel?.text = "\(addressStreet.uppercaseString) \(houseNumber), \(postNumber) \(town.uppercaseString)"
+            }
+        }
         
-        let company = self.companys[indexPath.row]
-        cell.textLabel?.text = company.shortName == "/" ? company.fullName : company.shortName
         
         return cell
     }
