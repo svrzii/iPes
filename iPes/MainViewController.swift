@@ -105,18 +105,20 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
             }
         }
     }
+    
     @IBAction func infoTapped(sender: UIButton) {
-        let alert = UIAlertController(title: "iPes", message: "Version: 1.0\nBuild date: 16.05.2016\n\nIntera d.o.o.", preferredStyle: .Alert)
+        var version = "1.0"
+        if let dictionary = NSBundle.mainBundle().infoDictionary {
+            version = dictionary["CFBundleShortVersionString"] as! String
+        }
+        
+        let alert = UIAlertController(title: "iPes", message: "Version: \(version)\nBuild date: 16.05.2016\n\nIntera d.o.o.", preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "Close", style: .Cancel, handler:nil))
         self.presentViewController(alert, animated: true, completion: nil)
     }
 }
 
 extension MainViewController: UISearchBarDelegate {
-    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-        searchBar.showsCancelButton = true
-    }
-    
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         self.companys.removeAll()
         self.currentPage = 0
@@ -138,27 +140,10 @@ extension MainViewController: UISearchBarDelegate {
                 }
             })
         } else {
+            self.title = "iPes"
             self.nativeView.tableView.beginUpdates()
             self.nativeView.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
             self.nativeView.tableView.endUpdates()
-        }
-    }
-    
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        if let text = searchBar.text {
-            self.companys.removeAll()
-            self.currentPage = 0
-            searchBar.resignFirstResponder()
-            self.requestWithSearchString(text, completion: nil)
-        }
-    }
-    
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
-        searchBar.text = ""
-        UIView.animateWithDuration(0.3) {
-            searchBar.showsCancelButton = false
-            self.view.layoutIfNeeded()
         }
     }
 }
