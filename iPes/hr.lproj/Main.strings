@@ -9,7 +9,7 @@
 "AoQ-9u-Rfn.text" = "Label";
 
 /* Class = "UILabel"; text = "Transakcijski računi:"; ObjectID = "GCt-qP-LLQ"; */
-"GCt-qP-LLQ.text" = "Transakcijski računi:";
+"GCt-qP-LLQ.text" = "Bankovni računi:";
 
 /* Class = "UISearchBar"; placeholder = "Search"; ObjectID = "NuW-w1-Lmu"; */
 "NuW-w1-Lmu.placeholder" = "Traži";
