@@ -36,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0707D8CF1CE9E99C00FCED82 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Main.strings; sourceTree = "<group>"; };
 		071218691CE5F81F0044989B /* iPes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0712186C1CE5F81F0044989B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0712186E1CE5F81F0044989B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -305,6 +306,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				071218711CE5F81F0044989B /* Base */,
+				0707D8CF1CE9E99C00FCED82 /* hr */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

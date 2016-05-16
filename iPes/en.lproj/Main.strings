@@ -1,0 +1,66 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "5cF-6b-I8h"; */
+"5cF-6b-I8h.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "8fK-UV-eSA"; */
+"8fK-UV-eSA.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "AoQ-9u-Rfn"; */
+"AoQ-9u-Rfn.text" = "Label";
+
+/* Class = "UILabel"; text = "Transakcijski računi:"; ObjectID = "GCt-qP-LLQ"; */
+"GCt-qP-LLQ.text" = "Transakcijski računi:";
+
+/* Class = "UISearchBar"; placeholder = "Search"; ObjectID = "NuW-w1-Lmu"; */
+"NuW-w1-Lmu.placeholder" = "Search";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "PbF-MR-rh2"; */
+"PbF-MR-rh2.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "QOZ-5x-Gf8"; */
+"QOZ-5x-Gf8.text" = "Label";
+
+/* Class = "UILabel"; text = "Matična številka:"; ObjectID = "Qkd-GY-nxc"; */
+"Qkd-GY-nxc.text" = "Matična številka:";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Uhu-tZ-xnv"; */
+"Uhu-tZ-xnv.text" = "Label";
+
+/* Class = "UILabel"; text = "Davčna številka:"; ObjectID = "Wye-Pa-kmL"; */
+"Wye-Pa-kmL.text" = "Davčna številka:";
+
+/* Class = "UISegmentedControl"; YJN-oV-zL1.segmentTitles[0] = "Name"; ObjectID = "YJN-oV-zL1"; */
+"YJN-oV-zL1.segmentTitles[0]" = "Name";
+
+/* Class = "UISegmentedControl"; YJN-oV-zL1.segmentTitles[1] = "Tax number"; ObjectID = "YJN-oV-zL1"; */
+"YJN-oV-zL1.segmentTitles[1]" = "Tax number";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "YMC-4g-Vr6"; */
+"YMC-4g-Vr6.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "cXO-MC-xWf"; */
+"cXO-MC-xWf.text" = "Label";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "cal-Nt-izR"; */
+"cal-Nt-izR.text" = "Title";
+
+/* Class = "UILabel"; text = "Občina:"; ObjectID = "cp2-KH-Ddd"; */
+"cp2-KH-Ddd.text" = "Občina:";
+
+/* Class = "UILabel"; text = "Naslov:"; ObjectID = "g2y-Z1-Qhe"; */
+"g2y-Z1-Qhe.text" = "Naslov:";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "jht-6B-DWa"; */
+"jht-6B-DWa.text" = "Label";
+
+/* Class = "UILabel"; text = "Poštna številka:"; ObjectID = "kMa-LI-ami"; */
+"kMa-LI-ami.text" = "Poštna številka:";
+
+/* Class = "UILabel"; text = "Polno ime:"; ObjectID = "l20-EE-b78"; */
+"l20-EE-b78.text" = "Polno ime:";
+
+/* Class = "UILabel"; text = "Pošta:"; ObjectID = "udP-hI-GxV"; */
+"udP-hI-GxV.text" = "Pošta:";
+
+/* Class = "UILabel"; text = "Kratko ime:"; ObjectID = "v1Z-1d-S8f"; */
+"v1Z-1d-S8f.text" = "Kratko ime:";
