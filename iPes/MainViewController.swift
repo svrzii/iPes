@@ -181,12 +181,22 @@ extension MainViewController: UITableViewDelegate {
         self.performSegueWithIdentifier("showCompanyDetail", sender: self.companys[indexPath.row])
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if self.companys.count == 1 {
+            if self.companys[0].bankAccounts?.count > 0 && indexPath.row == 8 {
+                return 100
+            }
+        }
+        
+        return 60
+    }
 }
 
 extension MainViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.companys.count == 1 {
-            return 8
+            return self.companys[0].bankAccounts?.count > 0 ? 9 : 8
         }
         
         return self.companys.count == 0 && self.nativeView.seachBar.text?.characters.count > 2 ? 1 : self.companys.count
@@ -267,9 +277,23 @@ extension MainViewController: UITableViewDataSource {
             case 7:
                 cell.textLabel?.text = "Poštna številka:"
                 cell.detailTextLabel?.text = self.companys[0].addressPostNumber?.uppercaseString
+            case 8:
+                var bankAccountsString = ""
+                if let bankAccounts = self.companys[0].bankAccounts {
+                    for account in bankAccounts {
+                        let iban = account["iban"] as! String
+                        let accountNumber = account["account_number"] as! String
+                        
+                        bankAccountsString += "\(iban) \(accountNumber)\n"
+                    }
+                    
+                    cell.textLabel?.text = bankAccounts.count == 1 ? "Transakcijski račun:" : "Transakcijski računi:"
+                    cell.detailTextLabel?.text = bankAccountsString
+                }
+                
             default:
-                cell.textLabel?.text = "Poštna številka:"
-                cell.detailTextLabel?.text = self.companys[0].addressPostNumber?.uppercaseString
+                cell.textLabel?.text = ""
+                cell.detailTextLabel?.text = ""
             }
         }
         
