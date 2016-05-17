@@ -186,6 +186,8 @@ extension MainViewController: UITableViewDelegate {
         if self.companys.count == 1 {
             if self.companys[0].bankAccounts?.count > 0 && indexPath.row == 8 {
                 return 100
+            } else if indexPath.row == 0 {
+                return 80
             }
         }
         
