@@ -185,8 +185,29 @@ extension MainViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if self.companys.count == 1 {
             if self.companys[0].bankAccounts?.count > 0 && indexPath.row == 8 {
-                return 100
+                
+                var bankAccountsString = ""
+                if let bankAccounts = self.companys[0].bankAccounts {
+                    for account in bankAccounts {
+                        let iban = account["iban"] as! String
+                        let accountNumber = account["account_number"] as! String
+                        
+                        bankAccountsString += "\(iban) \(accountNumber)\n"
+                    }
+                    let height = bankAccountsString.boundingRectWithSize(CGSizeMake(tableView.bounds.width - 34, CGFloat.max), options: .UsesLineFragmentOrigin, attributes: [NSFontAttributeName : UIFont.systemFontOfSize(12)], context: nil).height
+                    
+                    return height + 40
+                }
+
+                return 60
             } else if indexPath.row == 0 {
+                
+                if let name = self.companys[0].fullName {
+                    let height = name.boundingRectWithSize(CGSizeMake(tableView.bounds.width - 34, CGFloat.max), options: .UsesLineFragmentOrigin, attributes: [NSFontAttributeName : UIFont.systemFontOfSize(12)], context: nil).height
+                    
+                    return height + 40
+                }
+                
                 return 80
             }
         }
