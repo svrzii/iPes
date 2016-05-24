@@ -22,7 +22,7 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
         return self.view as! MainControllerView
     }
     
-    private var companys: [Company] = []
+    private var companys = [Company]()
     private var numberOfPages = 0
     private var currentPage = 0
     private var isLoading = false
