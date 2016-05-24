@@ -59,9 +59,9 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
                 
                 var titleString = "iPes"
                 if count == 1 {
-                    titleString = "iPes (\(count) Result)"
+                    titleString = "iPes (\(count) \(NSLocalizedString("Zadetek", comment: "")))"
                 } else if count > 1 {
-                    titleString = "iPes (\(count) Results)"
+                    titleString = "iPes (\(count) \(NSLocalizedString("Zadetki", comment: "")))"
                 }
                 
                 if let results = json["results"] as? [[String: AnyObject]] {
@@ -112,8 +112,8 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
             version = dictionary["CFBundleShortVersionString"] as! String
         }
         
-        let alert = UIAlertController(title: "iPes", message: "Version: \(version)\nBuild date: 16.05.2016\n\nIntera d.o.o.", preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Close", style: .Cancel, handler:nil))
+        let alert = UIAlertController(title: "iPes", message: "\(NSLocalizedString("Verzija", comment: "")) \(version)\nBuild date: 16.05.2016\n\nIntera d.o.o.", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "\(NSLocalizedString("Zapri", comment: ""))", style: .Cancel, handler:nil))
         self.presentViewController(alert, animated: true, completion: nil)
     }
 }
@@ -126,7 +126,7 @@ extension MainViewController: UISearchBarDelegate {
         if searchText.characters.count > 2 {
             self.requestWithSearchString(searchText, completion: { [unowned self] (error) in
                 if let error = error {
-                    let alert = UIAlertController(title: "Error", message: "There was a problem. Additional info: \(error.localizedDescription)", preferredStyle: .Alert)
+                    let alert = UIAlertController(title: "\(NSLocalizedString("Napaka", comment: ""))", message: "\(NSLocalizedString("Error tekst", comment: "")) \(error.localizedDescription)", preferredStyle: .Alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler:nil))
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
@@ -152,13 +152,20 @@ extension MainViewController: UISearchBarDelegate {
             return
         }
         
-        self.view.endEditing(true)
+        if searchBar.text?.characters.count < 3 {
+            let alert = UIAlertController(title: "\(NSLocalizedString("Napaka", comment: ""))", message: "\(NSLocalizedString("Napaka vnos", comment: ""))", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler:nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+            
+            return
+        }
+        
         self.companys.removeAll()
         self.currentPage = 0
         
         self.requestWithSearchString(text, completion: { [unowned self] (error) in
             if let error = error {
-                let alert = UIAlertController(title: "Error", message: "There was a problem. Additional info: \(error.localizedDescription)", preferredStyle: .Alert)
+                let alert = UIAlertController(title: "\(NSLocalizedString("Napaka", comment: ""))", message: "\(NSLocalizedString("Error tekst", comment: "")) \(error.localizedDescription)", preferredStyle: .Alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler:nil))
                 self.presentViewController(alert, animated: true, completion: nil)
             }
@@ -222,7 +229,16 @@ extension MainViewController: UITableViewDataSource {
             return self.companys[0].bankAccounts?.count > 0 ? 9 : 8
         }
         
-        return self.companys.count == 0 && self.nativeView.seachBar.text?.characters.count > 2 ? 1 : self.companys.count
+        if self.companys.count == 0 {
+            return self.nativeView.seachBar.text?.characters.count > 2 ? 1 : self.companys.count
+        }
+        
+        if self.nativeView.seachBar.text?.characters.count < 3 {
+            self.title = "iPes"
+            return 0
+        }
+        
+        return self.companys.count
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -250,7 +266,7 @@ extension MainViewController: UITableViewDataSource {
                 weak var weakCell = cell
                 self.requestWithSearchString(text, completion: { [unowned self] (error) in
                     if let error = error {
-                        let alert = UIAlertController(title: "Error", message: "There was a problem. Additional info: \(error.localizedDescription)", preferredStyle: .Alert)
+                        let alert = UIAlertController(title: "\(NSLocalizedString("Napaka", comment: ""))", message: "\(NSLocalizedString("Error tekst", comment: "")) \(error.localizedDescription)", preferredStyle: .Alert)
                         alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler:nil))
                         self.presentViewController(alert, animated: true, completion: nil)
                     }
@@ -265,7 +281,7 @@ extension MainViewController: UITableViewDataSource {
 
         let cell = tableView.dequeueReusableCellWithIdentifier("cell")!
         if self.companys.count < 1 {
-            cell.textLabel?.text = "No results for \"\(self.nativeView.seachBar.text ?? "")\""
+            cell.textLabel?.text = "\(NSLocalizedString("Brez zadetkov", comment: "")) \"\(self.nativeView.seachBar.text ?? "")\""
             cell.detailTextLabel?.text = nil
         } else if self.companys.count > 1 {
             let company = self.companys[indexPath.row]
@@ -277,28 +293,28 @@ extension MainViewController: UITableViewDataSource {
             tableView.separatorColor = UIColor.clearColor()
             switch indexPath.row {
             case 0:
-                cell.textLabel?.text = "Polno ime:"
+                cell.textLabel?.text = "\(NSLocalizedString("Polno ime", comment: ""))"
                 cell.detailTextLabel?.text = self.companys[0].fullName?.uppercaseString
             case 1:
-                cell.textLabel?.text = "Kratko ime:"
+                cell.textLabel?.text = "\(NSLocalizedString("Kratko ime", comment: ""))"
                 cell.detailTextLabel?.text = self.companys[0].shortName?.uppercaseString
             case 2:
-                cell.textLabel?.text = "Davčna številka:"
+                cell.textLabel?.text = "\(NSLocalizedString("Davčna številka", comment: ""))"
                 cell.detailTextLabel?.text = "\(self.companys[0].taxNumber!)"
             case 3:
-                cell.textLabel?.text = "Matična številka:"
+                cell.textLabel?.text = "\(NSLocalizedString("Matična številka", comment: ""))"
                 cell.detailTextLabel?.text = self.companys[0].idNumber?.uppercaseString
             case 4:
-                cell.textLabel?.text = "Naslov:"
+                cell.textLabel?.text = "\(NSLocalizedString("Naslov", comment: ""))"
                 cell.detailTextLabel?.text = self.companys[0].addressStreet!.uppercaseString + " " + self.companys[0].addressHouseNumber!.uppercaseString
             case 5:
-                cell.textLabel?.text = "Občina:"
+                cell.textLabel?.text = "\(NSLocalizedString("Občina", comment: ""))"
                 cell.detailTextLabel?.text = self.companys[0].addressMunicipality?.uppercaseString
             case 6:
-                cell.textLabel?.text = "Pošta:"
+                cell.textLabel?.text = "\(NSLocalizedString("Pošta", comment: ""))"
                 cell.detailTextLabel?.text = self.companys[0].addressPost?.uppercaseString
             case 7:
-                cell.textLabel?.text = "Poštna številka:"
+                cell.textLabel?.text = "\(NSLocalizedString("Poštna številka", comment: ""))"
                 cell.detailTextLabel?.text = self.companys[0].addressPostNumber?.uppercaseString
             case 8:
                 var bankAccountsString = ""
@@ -310,7 +326,7 @@ extension MainViewController: UITableViewDataSource {
                         bankAccountsString += "\(iban) \(accountNumber)\n"
                     }
                     
-                    cell.textLabel?.text = bankAccounts.count == 1 ? "Transakcijski račun:" : "Transakcijski računi:"
+                    cell.textLabel?.text = bankAccounts.count == 1 ? "\(NSLocalizedString("Transakcijski račun", comment: "")):" : "\(NSLocalizedString("Transakcijski račun", comment: ""))i:"
                     cell.detailTextLabel?.text = bankAccountsString
                 }
                 

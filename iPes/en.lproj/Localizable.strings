@@ -1,0 +1,27 @@
+/* 
+  Localizable.strings
+  iPes
+
+  Created by Matej Svrznjak on 24/05/2016.
+  Copyright © 2016 Matej Svrznjak. All rights reserved.
+*/
+
+"Polno ime" = "Polno ime:";
+"Kratko ime" = "Kratko ime:";
+"Davčna številka" = "Davčna številka:";
+"Matična številka" = "Matična številka:";
+"Naslov" = "Naslov:";
+"Občina" = "Občina:";
+"Pošta" = "Pošta:";
+"Poštna številka" = "Poštna številka:";
+"Transakcijski račun" = "Transakcijski račun";
+"Išči" = "Išči";
+"Zadetki" = "Zadetki";
+"Zadetek" = "Zadetek";
+"Verzija" = "Verzija:";
+"Datum nastanka" = "Datum nastanka:";
+"Zapri" = "Zapri";
+"Error tekst" = "Prišlo je do napake. Dodatne informacije:";
+"Napaka" = "Napaka";
+"Napaka vnos" = "Za iskanje vnesite najmanj 3 znake.";
+"Brez zadetkov" = "Brez zadetkov za";
