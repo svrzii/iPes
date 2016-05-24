@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="P67-eZ-P6v">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="P67-eZ-P6v">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -63,11 +63,20 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="EiE-8y-Qxq">
-                                                    <rect key="frame" x="290" y="15" width="20" height="20"/>
+                                                    <rect key="frame" x="290" y="7" width="20" height="20"/>
+                                                    <color key="color" red="0.0039215686269999999" green="0.52549019610000003" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 </activityIndicatorView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NALAGANJE..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xwh-Cz-b17">
+                                                    <rect key="frame" x="261" y="28.5" width="86" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                                                    <color key="textColor" red="0.0039215686269999999" green="0.52549019610000003" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="EiE-8y-Qxq" firstAttribute="centerY" secondItem="J1Q-95-Nw8" secondAttribute="centerY" id="Gnu-hF-el5"/>
+                                                <constraint firstItem="EiE-8y-Qxq" firstAttribute="centerY" secondItem="J1Q-95-Nw8" secondAttribute="centerY" constant="-8" id="Gnu-hF-el5"/>
+                                                <constraint firstItem="xwh-Cz-b17" firstAttribute="centerX" secondItem="J1Q-95-Nw8" secondAttribute="centerX" constant="4" id="NZa-pP-9nl"/>
+                                                <constraint firstItem="xwh-Cz-b17" firstAttribute="centerY" secondItem="J1Q-95-Nw8" secondAttribute="centerY" constant="11.75" id="xw2-jo-Cns"/>
                                                 <constraint firstItem="EiE-8y-Qxq" firstAttribute="centerX" secondItem="J1Q-95-Nw8" secondAttribute="centerX" id="zcX-Ro-yas"/>
                                             </constraints>
                                         </tableViewCellContentView>

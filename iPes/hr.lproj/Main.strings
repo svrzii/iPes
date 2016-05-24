@@ -29,12 +29,6 @@
 /* Class = "UILabel"; text = "Davčna številka:"; ObjectID = "Wye-Pa-kmL"; */
 "Wye-Pa-kmL.text" = "Porezni broj:";
 
-/* Class = "UISegmentedControl"; YJN-oV-zL1.segmentTitles[0] = "Name"; ObjectID = "YJN-oV-zL1"; */
-"YJN-oV-zL1.segmentTitles[0]" = "Ime";
-
-/* Class = "UISegmentedControl"; YJN-oV-zL1.segmentTitles[1] = "Tax number"; ObjectID = "YJN-oV-zL1"; */
-"YJN-oV-zL1.segmentTitles[1]" = "Registarski broj";
-
 /* Class = "UILabel"; text = "Label"; ObjectID = "YMC-4g-Vr6"; */
 "YMC-4g-Vr6.text" = "Label";
 
@@ -64,3 +58,6 @@
 
 /* Class = "UILabel"; text = "Kratko ime:"; ObjectID = "v1Z-1d-S8f"; */
 "v1Z-1d-S8f.text" = "Kratko ime:";
+
+/* Class = "UILabel"; text = "NALAGANJE..."; ObjectID = "xwh-Cz-b17"; */
+"xwh-Cz-b17.text" = "UČITAVA SE...";
