@@ -59,9 +59,13 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
                 
                 var titleString = "iPes"
                 if count == 1 {
-                    titleString = "iPes (\(count) \(NSLocalizedString("Zadetek", comment: "")))"
-                } else if count > 1 {
-                    titleString = "iPes (\(count) \(NSLocalizedString("Zadetki", comment: "")))"
+                    titleString = "iPes (\(count) \(NSLocalizedString("Rezultat", comment: "")))"
+                } else if count == 2 {
+                    titleString = "iPes (\(count) \(NSLocalizedString("Rezultata", comment: "")))"
+                } else if count == 3 || count == 4 {
+                    titleString = "iPes (\(count) \(NSLocalizedString("Rezultati", comment: "")))"
+                } else if count > 2 {
+                    titleString = "iPes (\(count) \(NSLocalizedString("Rezultatov", comment: "")))"
                 }
                 
                 if let results = json["results"] as? [[String: AnyObject]] {

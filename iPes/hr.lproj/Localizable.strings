@@ -16,8 +16,6 @@
 "Poštna številka" = "Poštanski broj:";
 "Transakcijski račun" = "Bankovni račun";
 "Išči" = "Traži";
-"Zadetki" = "Rezultati";
-"Zadetek" = "Rezultat";
 "Verzija" = "Inačica:";
 "Datum nastanka" = "Datum nastanka:";
 "Zapri" = "Zatvori";
@@ -25,3 +23,7 @@
 "Napaka" = "Greška";
 "Napaka vnos" = "Za pretraživanje unesite najmanje 3 znaka.";
 "Brez zadetkov" = "Nema rezultata za";
+"Rezultat" = "Rezultat";
+"Rezultata" = "Rezultata";
+"Rezultatov" = "Rezultata";
+"Rezultati" = "Rezultata";

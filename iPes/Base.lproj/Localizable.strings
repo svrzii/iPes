@@ -16,12 +16,14 @@
 "Poštna številka" = "Poštna številka:";
 "Transakcijski račun" = "Transakcijski račun";
 "Išči" = "Išči";
-"Zadetki" = "Zadetki";
-"Zadetek" = "Zadetek";
 "Verzija" = "Verzija:";
 "Datum nastanka" = "Datum nastanka:";
 "Zapri" = "Zapri";
 "Error tekst" = "Prišlo je do napake. Dodatne informacije:";
 "Napaka" = "Napaka";
 "Napaka vnos" = "Za iskanje vnesite najmanj 3 znake.";
-"Brez zadetkov" = "Brez zadetkov za";
+"Brez zadetkov" = "Brez rezultata za";
+"Rezultat" = "Rezultat";
+"Rezultata" = "Rezultata";
+"Rezultatov" = "Rezultatov";
+"Rezultati" = "Rezultati";
