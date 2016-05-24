@@ -30,10 +30,10 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = self.company.shortName
+        self.title = self.company.shortName?.uppercaseString
 
-        self.nativeView.fullNameLabel.text = self.company.fullName
-        self.nativeView.shortNameLabel.text = self.company.shortName
+        self.nativeView.fullNameLabel.text = self.company.fullName?.uppercaseString
+        self.nativeView.shortNameLabel.text = self.company.shortName?.uppercaseString
         
         if let taxNumber = self.company.taxNumber {
             self.nativeView.taxNumberLabel.text = "\(taxNumber)"
@@ -42,12 +42,12 @@ class DetailViewController: UIViewController {
         self.nativeView.idNumberLabel.text = self.company.idNumber
         
         if let addressStreet = self.company.addressStreet, addressHouseNumber = self.company.addressHouseNumber {
-            self.nativeView.addressStreetLabel.text = "\(addressStreet) \(addressHouseNumber)"
+            self.nativeView.addressStreetLabel.text = "\(addressStreet) \(addressHouseNumber)".uppercaseString
         }
         
-        self.nativeView.addressMunicipalityLabel.text = self.company.addressMunicipality
-        self.nativeView.addressPostLabel.text = self.company.addressPost
-        self.nativeView.addressPostNumberLabel.text = self.company.addressPostNumber
+        self.nativeView.addressMunicipalityLabel.text = self.company.addressMunicipality?.uppercaseString
+        self.nativeView.addressPostLabel.text = self.company.addressPost?.uppercaseString
+        self.nativeView.addressPostNumberLabel.text = self.company.addressPostNumber?.uppercaseString
         
         if let bankAccounts = self.company.bankAccounts {
             if bankAccounts.count < 1 {
